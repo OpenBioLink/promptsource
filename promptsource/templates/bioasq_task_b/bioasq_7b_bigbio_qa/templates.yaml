@@ -1,0 +1,73 @@
+dataset: bioasq_task_b
+subset: bioasq_7b_bigbio_qa
+templates:
+  1511a33a-a42b-4960-b619-1132813c740b: !Template
+    answer_choices: null
+    id: 1511a33a-a42b-4960-b619-1132813c740b
+    jinja: "Given a passage: {{ context }}\n\nAnswer the question: \"{{question}}\"\
+      \n||| \n{{answer[0]}}"
+    metadata: !TemplateMetadata
+      choices_in_prompt: false
+      metrics:
+      - BLEU
+      - ROUGE
+      - Other
+      original_task: true
+    name: Given a passage (question at end)
+    reference: ''
+  1f323a45-5a30-4380-9d4c-dea793480a33: !Template
+    answer_choices: null
+    id: 1f323a45-5a30-4380-9d4c-dea793480a33
+    jinja: "I'm a doctor and I need to answer the question \"{{ question }}\" using\
+      \ the following passage:\n\n{{ context }}\n||| \n{{answer[0]}}"
+    metadata: !TemplateMetadata
+      choices_in_prompt: false
+      metrics:
+      - BLEU
+      - ROUGE
+      - Other
+      original_task: true
+    name: I'm a doctor
+    reference: ''
+  20d770b4-36e6-4cec-af43-225ebb3aa826: !Template
+    answer_choices: null
+    id: 20d770b4-36e6-4cec-af43-225ebb3aa826
+    jinja: "What is the answer to the question \"{{ question }}\" based on the following\
+      \ passage:\n\n{{ context }}\n||| \n{{answer[0]}}"
+    metadata: !TemplateMetadata
+      choices_in_prompt: false
+      metrics:
+      - BLEU
+      - ROUGE
+      - Other
+      original_task: true
+    name: What is the answer
+    reference: ''
+  43edc115-e65c-4bc7-81e7-7f3baaf1a54a: !Template
+    answer_choices: null
+    id: 43edc115-e65c-4bc7-81e7-7f3baaf1a54a
+    jinja: "Please answer the question \"{{ question }}\" using the following passage:\n\
+      \n{{ context }}\n||| \n{{answer[0]}}"
+    metadata: !TemplateMetadata
+      choices_in_prompt: false
+      metrics:
+      - BLEU
+      - ROUGE
+      - Other
+      original_task: true
+    name: Please answer
+    reference: ''
+  77683b54-81c8-4a3c-b92e-8e08f0dadf3c: !Template
+    answer_choices: null
+    id: 77683b54-81c8-4a3c-b92e-8e08f0dadf3c
+    jinja: "Given the following passage, answer the question: \"{{question}}\"\n\n\
+      Passage: {{ context }}\n||| \n{{answer[0]}}"
+    metadata: !TemplateMetadata
+      choices_in_prompt: false
+      metrics:
+      - BLEU
+      - ROUGE
+      - Other
+      original_task: true
+    name: Given a passage (question at start)
+    reference: ''
