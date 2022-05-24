@@ -1,63 +1,65 @@
 dataset: pubmed_qa
 subset: pubmed_qa_labeled_fold6_bigbio_qa
 templates:
-  0b442f31-f60e-4ef5-928e-881f61517890: !Template
-    answer_choices: yes ||| no ||| maybe
-    id: 0b442f31-f60e-4ef5-928e-881f61517890
-    jinja: "Given the following PubMed abstract answer the question: \"{{question}}\"\
-      \n\nAbstract: {{ context }}\n||| \n{{answer[0]}}"
-    metadata: !TemplateMetadata
-      choices_in_prompt: false
-      metrics:
-      - Accuracy
-      original_task: true
-    name: Given a PubMed abstract (question at start, no choices)
-    reference: ''
-  84bc68a9-376b-4a3e-8663-ff00927cd061: !Template
-    answer_choices: yes ||| no ||| maybe
-    id: 84bc68a9-376b-4a3e-8663-ff00927cd061
-    jinja: "I'm a doctor and I need to find the answer to the question \"{{ question\
-      \ }}\" in the following PubMed abstract:\n\n{{ context }}\n||| \n{{answer[0]}}"
-    metadata: !TemplateMetadata
-      choices_in_prompt: false
-      metrics:
-      - Accuracy
-      original_task: true
-    name: I'm a doctor
-    reference: ''
-  aff7b85f-b6b4-4cbb-b677-e30e9418122c: !Template
-    answer_choices: yes ||| no ||| maybe
-    id: aff7b85f-b6b4-4cbb-b677-e30e9418122c
-    jinja: "Given the following PubMed abstract answer the question: \"{{question}}\"\
-      \ with yes, no, or maybe.\n\nAbstract: {{ context }}\n||| \n{{answer[0]}}"
-    metadata: !TemplateMetadata
-      choices_in_prompt: true
-      metrics:
-      - Accuracy
-      original_task: true
-    name: Given a PubMed abstract (question at start)
-    reference: ''
-  b3d03c40-97f3-4ba1-a4bb-a7139776a8c3: !Template
-    answer_choices: yes ||| no ||| maybe
-    id: b3d03c40-97f3-4ba1-a4bb-a7139776a8c3
-    jinja: "Given a PubMed abstract: {{ context }}\n\nAnswer the question: \"{{question}}\"\
+  3c9b3ad2-b03c-438e-ae19-dfb2ee2f42f6: !Template
+    answer_choices: '{{ choices | join("|||") }}'
+    id: 3c9b3ad2-b03c-438e-ae19-dfb2ee2f42f6
+    jinja: "Given a passage: {{ context }}\n\nAnswer the question: \"{{question}}\"\
       \n||| \n{{answer[0]}}"
     metadata: !TemplateMetadata
       choices_in_prompt: false
       metrics:
       - Accuracy
       original_task: true
-    name: Given a PubMed abstract (question at end, no choices)
+    name: Given a passage (question at end, no choices)
     reference: ''
-  b74880a0-5a42-4e41-a826-0542d7cd763f: !Template
-    answer_choices: yes ||| no ||| maybe
-    id: b74880a0-5a42-4e41-a826-0542d7cd763f
-    jinja: "Given a PubMed abstract: {{ context }}\n\nAnswer the question: \"{{question}}\"\
-      \ with yes, no, or maybe.\n||| \n{{answer[0]}}"
+  5e8dcb47-8e9b-4c86-9c50-b74ff36f24de: !Template
+    answer_choices: '{{ choices | join("|||") }}'
+    id: 5e8dcb47-8e9b-4c86-9c50-b74ff36f24de
+    jinja: "Given the following passage, answer the question: \"{{question}}\" with\
+      \ one of the following choices:\n{% for choice in answer_choices %} - {{choice}}\n\
+      {% endfor %}\nPassage: {{ context }}\n||| \n{{answer[0]}}"
     metadata: !TemplateMetadata
       choices_in_prompt: true
       metrics:
       - Accuracy
       original_task: true
-    name: Given a PubMed abstract (question at end)
+    name: Given a passage (question at start)
+    reference: ''
+  627ac807-f3f6-4ecf-92ca-31f68721a08c: !Template
+    answer_choices: '{{ choices | join("|||") }}'
+    id: 627ac807-f3f6-4ecf-92ca-31f68721a08c
+    jinja: "Given the following passage, answer the question: \"{{question}}\"\n\n\
+      Passage: {{ context }}\n||| \n{{answer[0]}}"
+    metadata: !TemplateMetadata
+      choices_in_prompt: true
+      metrics:
+      - Accuracy
+      original_task: true
+    name: Given a passage (question at start, no choices)
+    reference: ''
+  75640bb9-7092-45a4-b47e-8140c78947f8: !Template
+    answer_choices: '{{ choices | join("|||") }}'
+    id: 75640bb9-7092-45a4-b47e-8140c78947f8
+    jinja: "Given a passage: {{ context }}\n\nAnswer the question: \"{{question}}\"\
+      \ with one of the following choices:\n{% for choice in answer_choices %} - {{choice}}\n\
+      {% endfor %}\n||| \n{{answer[0]}}"
+    metadata: !TemplateMetadata
+      choices_in_prompt: true
+      metrics:
+      - Accuracy
+      original_task: true
+    name: Given a passage (question at end)
+    reference: ''
+  b85d5904-e2e2-4980-ae7d-131c02e565da: !Template
+    answer_choices: '{{ choices | join("|||") }}'
+    id: b85d5904-e2e2-4980-ae7d-131c02e565da
+    jinja: "I'm a doctor and I need to find the answer to the question \"{{ question\
+      \ }}\" in the following passage:\n\n{{ context }}\n||| \n{{answer[0]}}"
+    metadata: !TemplateMetadata
+      choices_in_prompt: false
+      metrics:
+      - Accuracy
+      original_task: true
+    name: I'm a doctor
     reference: ''
