@@ -1,0 +1,63 @@
+dataset: pubmed_qa
+subset: pubmed_qa_labeled_fold5_bigbio_qa
+templates:
+  0ed0fa5d-4bf0-4ec4-a029-879784541644: !Template
+    answer_choices: yes ||| no ||| maybe
+    id: 0ed0fa5d-4bf0-4ec4-a029-879784541644
+    jinja: "I'm a doctor and I need to find the answer to the question \"{{ question\
+      \ }}\" in the following PubMed abstract:\n\n{{ context }}\n||| \n{{answer[0]}}"
+    metadata: !TemplateMetadata
+      choices_in_prompt: false
+      metrics:
+      - Accuracy
+      original_task: true
+    name: I'm a doctor
+    reference: ''
+  5f8298e2-b291-4ae3-97cb-21a524948e58: !Template
+    answer_choices: yes ||| no ||| maybe
+    id: 5f8298e2-b291-4ae3-97cb-21a524948e58
+    jinja: "Given the following PubMed abstract answer the question: \"{{question}}\"\
+      \n\nAbstract: {{ context }}\n||| \n{{answer[0]}}"
+    metadata: !TemplateMetadata
+      choices_in_prompt: false
+      metrics:
+      - Accuracy
+      original_task: true
+    name: Given a PubMed abstract (question at start, no choices)
+    reference: ''
+  64990789-9056-4563-ad01-1499fd6e17ef: !Template
+    answer_choices: yes ||| no ||| maybe
+    id: 64990789-9056-4563-ad01-1499fd6e17ef
+    jinja: "Given a PubMed abstract: {{ context }}\n\nAnswer the question: \"{{question}}\"\
+      \ with yes, no, or maybe.\n||| \n{{answer[0]}}"
+    metadata: !TemplateMetadata
+      choices_in_prompt: true
+      metrics:
+      - Accuracy
+      original_task: true
+    name: Given a PubMed abstract (question at end)
+    reference: ''
+  93539530-1ead-4de0-b8ed-bb8b899938cc: !Template
+    answer_choices: yes ||| no ||| maybe
+    id: 93539530-1ead-4de0-b8ed-bb8b899938cc
+    jinja: "Given a PubMed abstract: {{ context }}\n\nAnswer the question: \"{{question}}\"\
+      \n||| \n{{answer[0]}}"
+    metadata: !TemplateMetadata
+      choices_in_prompt: false
+      metrics:
+      - Accuracy
+      original_task: true
+    name: Given a PubMed abstract (question at end, no choices)
+    reference: ''
+  cef2e7ca-28ba-4447-93fb-89fe06e8f68f: !Template
+    answer_choices: yes ||| no ||| maybe
+    id: cef2e7ca-28ba-4447-93fb-89fe06e8f68f
+    jinja: "Given the following PubMed abstract answer the question: \"{{question}}\"\
+      \ with yes, no, or maybe.\n\nAbstract: {{ context }}\n||| \n{{answer[0]}}"
+    metadata: !TemplateMetadata
+      choices_in_prompt: true
+      metrics:
+      - Accuracy
+      original_task: true
+    name: Given a PubMed abstract (question at start)
+    reference: ''
