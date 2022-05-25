@@ -1,0 +1,65 @@
+dataset: pubmed_qa
+subset: pubmed_qa_labeled_fold3_bigbio_qa
+templates:
+  0014299b-0740-46ce-aae5-1cb981ea84da: !Template
+    answer_choices: '{{ choices | join("|||") }}'
+    id: 0014299b-0740-46ce-aae5-1cb981ea84da
+    jinja: "Given the following passage, answer the question: \"{{question}}\"\n\n\
+      Passage: {{ context }}\n||| \n{{answer[0]}}"
+    metadata: !TemplateMetadata
+      choices_in_prompt: true
+      metrics:
+      - Accuracy
+      original_task: true
+    name: Given a passage (question at start, no choices)
+    reference: ''
+  2ae41f53-1a61-4b34-8e49-8f7eb7b038a7: !Template
+    answer_choices: '{{ choices | join("|||") }}'
+    id: 2ae41f53-1a61-4b34-8e49-8f7eb7b038a7
+    jinja: "Given a passage: {{ context }}\n\nAnswer the question: \"{{question}}\"\
+      \ with one of the following choices:\n{% for choice in answer_choices %} - {{choice}}\n\
+      {% endfor %}\n||| \n{{answer[0]}}"
+    metadata: !TemplateMetadata
+      choices_in_prompt: true
+      metrics:
+      - Accuracy
+      original_task: true
+    name: Given a passage (question at end)
+    reference: ''
+  36e9a750-fae8-4735-9f82-aa6c71c3f63f: !Template
+    answer_choices: '{{ choices | join("|||") }}'
+    id: 36e9a750-fae8-4735-9f82-aa6c71c3f63f
+    jinja: "I'm a doctor and I need to find the answer to the question \"{{ question\
+      \ }}\" in the following passage:\n\n{{ context }}\n||| \n{{answer[0]}}"
+    metadata: !TemplateMetadata
+      choices_in_prompt: false
+      metrics:
+      - Accuracy
+      original_task: true
+    name: I'm a doctor
+    reference: ''
+  3b8d0f3f-c4a0-4a3f-82ae-472226ffb52a: !Template
+    answer_choices: '{{ choices | join("|||") }}'
+    id: 3b8d0f3f-c4a0-4a3f-82ae-472226ffb52a
+    jinja: "Given the following passage, answer the question: \"{{question}}\" with\
+      \ one of the following choices:\n{% for choice in answer_choices %} - {{choice}}\n\
+      {% endfor %}\nPassage: {{ context }}\n||| \n{{answer[0]}}"
+    metadata: !TemplateMetadata
+      choices_in_prompt: true
+      metrics:
+      - Accuracy
+      original_task: true
+    name: Given a passage (question at start)
+    reference: ''
+  92f82b13-db75-4437-a501-d0ac04b9a7c5: !Template
+    answer_choices: '{{ choices | join("|||") }}'
+    id: 92f82b13-db75-4437-a501-d0ac04b9a7c5
+    jinja: "Given a passage: {{ context }}\n\nAnswer the question: \"{{question}}\"\
+      \n||| \n{{answer[0]}}"
+    metadata: !TemplateMetadata
+      choices_in_prompt: false
+      metrics:
+      - Accuracy
+      original_task: true
+    name: Given a passage (question at end, no choices)
+    reference: ''
