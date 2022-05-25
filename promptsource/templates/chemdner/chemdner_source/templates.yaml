@@ -1,0 +1,22 @@
+dataset: chemdner
+subset: chemdner_source
+templates:
+  e33169b8-f33b-49a3-8fa5-c23e7378a1ad: !Template
+    answer_choices: null
+    id: e33169b8-f33b-49a3-8fa5-c23e7378a1ad
+    jinja: 'List all mentions of ENTITY_TYPE in the following passage by the order
+      of their appearance: {{passages[0][text]}}
+
+      |||
+
+      {% for entity in entities %}
+
+      {{ entity[text][0] }}
+
+      {% endfor %}'
+    metadata: !TemplateMetadata
+      choices_in_prompt: false
+      metrics: []
+      original_task: false
+    name: bigbio_ner_find_entity
+    reference: ''

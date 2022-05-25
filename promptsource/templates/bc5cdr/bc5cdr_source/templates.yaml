@@ -1,0 +1,18 @@
+dataset: bc5cdr
+subset: bc5cdr_source
+templates:
+  39fb7bb5-c331-40ab-af04-439b963fab13: !Template
+    answer_choices: null
+    id: 39fb7bb5-c331-40ab-af04-439b963fab13
+    jinja: 'List all mentions of ENTITY_TYPE in the following passage by the order
+      of their appearance: {{passages[0][text]}}
+
+      |||
+
+      {{passages}}'
+    metadata: !TemplateMetadata
+      choices_in_prompt: false
+      metrics: []
+      original_task: false
+    name: find_all_entities
+    reference: ''

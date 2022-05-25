@@ -1,0 +1,66 @@
+dataset: bc5cdr
+subset: bc5cdr_bigbio_kb
+templates:
+  21f0b687-ead8-47b2-bc1c-9d58c292b6a2: !Template
+    answer_choices: null
+    id: 21f0b687-ead8-47b2-bc1c-9d58c292b6a2
+    jinja: "{# This template asks for all pairs of entities that share a certain relation\
+      \ type #}\n{# TODO: Substitute CID with placeholder #}\n{{ passages | map(attribute=\"\
+      text\") | map('join', ' ') | join(' ') }} Which pairs of entities are in a CID\
+      \ relation?\n|||\n{%- set seen_pairs = dict() -%}\n{%- for relation in relations\
+      \ -%}\n {%- if relation[\"type\"] == \"CID\" -%}\n \t{%- set entity1 = entities|selectattr(\"\
+      id\", \"equalto\", relation[\"arg1_id\"])|map(attribute=\"text\")|map(\"join\"\
+      ,\" \")|join(\" \") | lower -%}\n \t{%- set entity2 = entities|selectattr(\"\
+      id\", \"equalto\", relation[\"arg2_id\"])|map(attribute=\"text\")|map(\"join\"\
+      ,\" \")|join(\" \") | lower -%}\n \t{%- set key = entity1 ~ \"##\" ~ entity2\
+      \ -%}\n \t{%- if not key in seen_pairs -%}\n \t\t{{ entity1 }} and {{ entity2\
+      \ }}, \n \t\t{%- set x = seen_pairs.__setitem__(key, \"True\") -%}\n \t{%- endif\
+      \ -%}\n  {%- endif -%}\n{%- endfor -%}\n\n\n\n"
+    metadata: !TemplateMetadata
+      choices_in_prompt: true
+      metrics: []
+      original_task: true
+    name: bigbio_re_find_relations_of_type
+    reference: ''
+  ad66d706-3467-435b-acba-93ecad679384: !Template
+    answer_choices: Yes ||| No
+    id: ad66d706-3467-435b-acba-93ecad679384
+    jinja: "{# This template selects a random relation type and a random relation\
+      \ and then asks whether the two match #} \n{# Note: This template should only\
+      \ be applied to data sets that have at least two relation types (otherwiese\
+      \ the answer will be always 'yes') #} \n{%- set rel_types = relations | map(attribute=\"\
+      type\") | unique | list -%}\n{%- set num_rel_types = rel_types | length -%}\n\
+      {%- set rand_rel_type_idx = range(num_rel_types) | random -%}\n{%- set rand_rel_type\
+      \ = rel_types[rand_rel_type_idx] -%}\n{%- set num_rels = relations | length\
+      \ -%}\n{%- set rand_rel_idx = range(num_rels) | random -%}\n{%- set rand_rel\
+      \ = relations[rand_rel_idx] -%}\n{%- set entity1 = entities|selectattr(\"id\"\
+      , \"equalto\", rand_rel[\"arg1_id\"])|map(attribute=\"text\")|map(\"join\",\"\
+      \ \")|join(\" \") -%}\n{%- set entity2 = entities|selectattr(\"id\", \"equalto\"\
+      , rand_rel[\"arg2_id\"])|map(attribute=\"text\")|map(\"join\",\" \")|join(\"\
+      \ \") -%}\n{{ passages | map(attribute=\"text\") | map('join', ' ') | join('\
+      \ ') }} Does the document above mention a {{ rand_rel[\"type\"] }} relation\
+      \ between {{ entity1 }} and {{ entity2 }}?\n|||\n{%- if rand_rel[\"type\"] ==\
+      \  rand_rel_type-%}\nYes\n{%- else -%}\nNo\n{%- endif -%}"
+    metadata: !TemplateMetadata
+      choices_in_prompt: false
+      metrics: []
+      original_task: false
+    name: bigbio_re_is_pair_in_relation
+    reference: ''
+  d45af8de-771d-4948-bacc-7fdd995dc695: !Template
+    answer_choices: null
+    id: d45af8de-771d-4948-bacc-7fdd995dc695
+    jinja: 'List all mentions of ENTITY_TYPE in the following passage by the order
+      of their appearance: {{passages[0]["text"][0]}}
+
+      |||
+
+      {{ entities | map(attribute=''text'')  | map(''join'', '' '') | join('', '')}}
+
+      '
+    metadata: !TemplateMetadata
+      choices_in_prompt: false
+      metrics: []
+      original_task: false
+    name: bigbio_re_find_entities
+    reference: ''

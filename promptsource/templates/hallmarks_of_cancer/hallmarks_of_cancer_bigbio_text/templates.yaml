@@ -1,0 +1,61 @@
+dataset: hallmarks_of_cancer
+subset: hallmarks_of_cancer_bigbio_text
+templates:
+  33788afb-014c-462f-925b-cd9422105080: !Template
+    answer_choices: null
+    id: 33788afb-014c-462f-925b-cd9422105080
+    jinja: "{{text}} \n{% if labels.length == 0 %} \nGiven the text above suggest\
+      \ a possible label:\n{% else %}\nGiven the text above suggest possible labels\
+      \ for each sentence:\n{% endif %}\n|||{{labels | join(' and ')}}"
+    metadata: !TemplateMetadata
+      choices_in_prompt: false
+      metrics: []
+      original_task: true
+    name: bigbio_txtclass_suggest
+    reference: ''
+  3d43f4b6-2b7f-43b7-9395-b6d04a8e407d: !Template
+    answer_choices: null
+    id: 3d43f4b6-2b7f-43b7-9395-b6d04a8e407d
+    jinja: ''
+    metadata: !TemplateMetadata
+      choices_in_prompt: null
+      metrics: null
+      original_task: null
+    name: bigbio_txtclass_text
+    reference: ''
+  7bc3f042-213d-4dd0-acbb-a2c6cfea9e62: !Template
+    answer_choices: null
+    id: 7bc3f042-213d-4dd0-acbb-a2c6cfea9e62
+    jinja: "{% if labels.length == 0 %} \nWhat label best describes this text?\n{%\
+      \ else %}\nWhich labels best describe the following sentences?\n{% endif %}\n\
+      {{text}}\n|||{{labels | join(', ')}}"
+    metadata: !TemplateMetadata
+      choices_in_prompt: false
+      metrics: []
+      original_task: true
+    name: bigbio_txtclass_classify_question_first
+    reference: ''
+  7e710044-91e1-4aa2-9e65-6a1b90abe9d4: !Template
+    answer_choices: null
+    id: 7e710044-91e1-4aa2-9e65-6a1b90abe9d4
+    jinja: "{% if labels.length == 0 %} \nGiven the text below suggest a possible\
+      \ label:\n{% else %}\nGiven the text below suggest possible labels for each\
+      \ sentence:\n{% endif %}\n{{text}}\n|||{{labels | join(' and ')}}"
+    metadata: !TemplateMetadata
+      choices_in_prompt: false
+      metrics: []
+      original_task: true
+    name: bigbio_txtclass_suggest_question_first
+    reference: ''
+  f1c564fd-f380-4d2b-9231-44a3dbad99b8: !Template
+    answer_choices: null
+    id: f1c564fd-f380-4d2b-9231-44a3dbad99b8
+    jinja: "{{text}} \n{% if labels.length == 0 %} \nWhat label best describes this\
+      \ text?\n{% else %}\nWhich labels best describe the previous sentences?\n{%\
+      \ endif %} \n|||{{labels | join(', ')}}"
+    metadata: !TemplateMetadata
+      choices_in_prompt: false
+      metrics: []
+      original_task: true
+    name: bigbio_txtclass_classify
+    reference: ''

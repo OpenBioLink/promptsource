@@ -1,0 +1,37 @@
+dataset: pubmed_qa
+subset: pubmed_qa_artificial_source
+templates:
+  cd86d88e-a80c-4fa1-9f13-fda7a90f2a96: !Template
+    answer_choices: Yes ||| No ||| Maybe
+    id: cd86d88e-a80c-4fa1-9f13-fda7a90f2a96
+    jinja: 'Given a PubMed abstract: {{ CONTEXTS | join(", ") }}
+
+
+      Answer the question: "{{QUESTION}}" as YES, NO, MAYBE.|||
+
+      {{final_decision}}'
+    metadata: !TemplateMetadata
+      choices_in_prompt: false
+      metrics:
+      - Accuracy
+      original_task: true
+    name: Question Answering (Short)
+    reference: Answer the following question using the provided abstract text
+  de14cad6-a8d7-4cb3-af88-337c528e775d: !Template
+    answer_choices: null
+    id: de14cad6-a8d7-4cb3-af88-337c528e775d
+    jinja: 'Given a PubMed abstract: {{ CONTEXTS | join(", ") }}
+
+
+      Answer this question: "{{QUESTION}}"|||
+
+      {{LONG_ANSWER}}'
+    metadata: !TemplateMetadata
+      choices_in_prompt: false
+      metrics:
+      - BLEU
+      - ROUGE
+      - Other
+      original_task: false
+    name: Question Answering (Long)
+    reference: Provide a long/verbose answer to the provided question
