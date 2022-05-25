@@ -1,0 +1,172 @@
+dataset: ebm_pico
+subset: ebm_pico_bigbio_kb
+templates:
+  0cc837cf-b7f0-40ca-8d75-c23256bbc105: !Template
+    answer_choices: null
+    id: 0cc837cf-b7f0-40ca-8d75-c23256bbc105
+    jinja: '{% set ent_len = entities|length %}
+
+      {% set entity_text_id = range(0, ent_len) | random %}
+
+      {% set entity_type_id = range(0, ent_len) | random %}
+
+      {% set entity_type =  entities[entity_type_id][''type''] %}
+
+      {% set entity_text =  entities[entity_text_id][''text''][0] %}
+
+
+      {% if entities[entity_type_id][''type''] == entities[entity_text_id][''type'']
+      %}
+
+      {% set answer = "Yes" %}
+
+      {% else %}
+
+      {% set answer = "No" %}
+
+      {% endif %}
+
+
+      {{passages[0][''text''][0] }}
+
+
+
+
+      In the passage above, is "{{ entity_text }}" an "{{ entity_type }}" type? Please
+      write {{ "Yes" }} or {{ "No" }}?
+
+
+
+      ||| {{ answer }}'
+    metadata: !TemplateMetadata
+      choices_in_prompt: false
+      metrics:
+      - Accuracy
+      original_task: false
+    name: is_correct_pico_type_after
+    reference: Binary classification prompt, x, followed by a pico type hypothesis
+  4e91e1fc-ae2b-4c1f-a5c9-85718c37e198: !Template
+    answer_choices: null
+    id: 4e91e1fc-ae2b-4c1f-a5c9-85718c37e198
+    jinja: "List all mentions of ENTITY_TYPE found in the following passage. Print\
+      \ them line by line by the order of their appearance. \n\n{{passages[0]['text'][0]\
+      \ }}\n\n\n||| {% for entity in entities %}{% if entity['type'] == ENTITY_TYPE\
+      \ %}{{entity['text'][0] + \"\\n\"}}{% endif %}{% endfor %}"
+    metadata: !TemplateMetadata
+      choices_in_prompt: false
+      metrics:
+      - Accuracy
+      original_task: true
+    name: list_pico_elements_before
+    reference: Extraction prompt, task followed by x
+  7b707cd8-b7dc-45b1-9c63-cd4010d3ff20: !Template
+    answer_choices: null
+    id: 7b707cd8-b7dc-45b1-9c63-cd4010d3ff20
+    jinja: '{% set ent_len = entities|length %}
+
+      {% set entity_text_id = range(0, ent_len) | random %}
+
+      {% set entity_type_id = range(0, ent_len) | random %}
+
+      {% set entity_type =  entities[entity_type_id][''type''] %}
+
+      {% set entity_text =  entities[entity_text_id][''text''][0] %}
+
+
+      {% if entities[entity_type_id][''type''] == entities[entity_text_id][''type'']
+      %}
+
+      {% set answer = "Yes" %}
+
+      {% else %}
+
+      {% set answer = "No" %}
+
+      {% endif %}
+
+
+      In the document below, is "{{ entity_text }}" an "{{ entity_type }}" type? Please
+      write {{ "Yes" }} or {{ "No" }}?
+
+
+      {{passages[0][''text''][0] }}
+
+
+
+      ||| {{ answer }}'
+    metadata: !TemplateMetadata
+      choices_in_prompt: false
+      metrics: []
+      original_task: false
+    name: is_correct_pico_type_before
+    reference: Binary classification prompt, pico type hypothesis followed by passage
+  85936b86-b549-450d-9a10-4f69bc193121: !Template
+    answer_choices: null
+    id: 85936b86-b549-450d-9a10-4f69bc193121
+    jinja: "{{passages[0]['text'][0] }}\n\n\nFrom the passage above, list all mentions\
+      \ of ENTITY_TYPE found in the following passage. Print them line by line by\
+      \ the order of their appearance. \n\n\n||| {% for entity in entities %}{% if\
+      \ entity['type'] == ENTITY_TYPE %}{{entity['text'][0] + \"\\n\"}}{% endif %}{%\
+      \ endfor %}"
+    metadata: !TemplateMetadata
+      choices_in_prompt: false
+      metrics:
+      - Accuracy
+      original_task: true
+    name: list_pico_elements_after
+    reference: ''
+  c1210f4a-26e4-461d-84c7-d38188f8e453: !Template
+    answer_choices: Intervention, Outcome, Participant
+    id: c1210f4a-26e4-461d-84c7-d38188f8e453
+    jinja: '{% set ent_len = entities|length %}
+
+      {% set entity_id = range(0, ent_len) | random %}
+
+      {% set pico_type =  entities[entity_id][''type''].split(''_'')[0] %}
+
+
+      From the passage below, is "{{ entities[entity_id][''text''][0] }}" an "Intervention",
+      "Outcome" or "Participant"?
+
+
+      {{passages[0][''text''][0] }}
+
+
+
+      ||| {{ pico_type }}
+
+      '
+    metadata: !TemplateMetadata
+      choices_in_prompt: false
+      metrics:
+      - Accuracy
+      original_task: false
+    name: classify_pico_type_before
+    reference: ''
+  fe44cd19-e2cf-44bd-a745-cfd8be412fad: !Template
+    answer_choices: Intervention, Outcome, Participant
+    id: fe44cd19-e2cf-44bd-a745-cfd8be412fad
+    jinja: '{% set ent_len = entities|length %}
+
+      {% set entity_id = range(0, ent_len) | random %}
+
+      {% set pico_type =  entities[entity_id][''type''].split(''_'')[0] %}
+
+
+      {{passages[0][''text''][0] }}
+
+
+      In the document above, is "{{ entities[entity_id][''text''][0] }}" an "Intervention",
+      "Outcome" or "Participant"?
+
+
+      ||| {{ pico_type }}
+
+      '
+    metadata: !TemplateMetadata
+      choices_in_prompt: true
+      metrics:
+      - Accuracy
+      original_task: false
+    name: classify_pico_type_after
+    reference: Classification prompt, x, followed by a pico type question
