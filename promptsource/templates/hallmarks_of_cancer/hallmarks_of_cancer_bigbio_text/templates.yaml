@@ -1,12 +1,29 @@
 dataset: hallmarks_of_cancer
 subset: hallmarks_of_cancer_bigbio_text
 templates:
+  29f3c020-076b-4c08-9fa5-bec1e0989e5d: !Template
+    answer_choices: Activating invasion and metastasis ||| Avoiding immune destruction
+      ||| Cellular energetics ||| Enabling replicative immortality ||| Evading growth
+      suppressors ||| Genomic instability and mutation ||| Inducing angiogenesis |||
+      Resisting cell death ||| NULL ||| Sustaining proliferative signaling ||| Tumor
+      promoting inflammation
+    id: 29f3c020-076b-4c08-9fa5-bec1e0989e5d
+    jinja: "{{text}} \n{% if labels.length == 1 %} \n{text} Given a choice of categories\
+      \ {{answer_choices |\njoin(', ')}}, the text refers to which one?\n{% else %}\n\
+      {text} Given a choice of categories {{answer_choices |\njoin(', ')}}, the text\
+      \ refers to which categories?\n{% endif %}\n|||{{labels | join(', ')}}"
+    metadata: !TemplateMetadata
+      choices_in_prompt: true
+      metrics: []
+      original_task: true
+    name: bigbio_txtclass_refer_choices
+    reference: ''
   33788afb-014c-462f-925b-cd9422105080: !Template
     answer_choices: null
     id: 33788afb-014c-462f-925b-cd9422105080
-    jinja: "{{text}} \n{% if labels.length == 0 %} \nGiven the text above suggest\
-      \ a possible label:\n{% else %}\nGiven the text above suggest possible labels\
-      \ for each sentence:\n{% endif %}\n|||{{labels | join(' and ')}}"
+    jinja: "{{text}} \n{% if labels.length == 1 %} \nGiven the text above suggest\
+      \ a possible label:\n{% else %}\nGiven the text above suggest possible labels:\n\
+      {% endif %}\n|||{{labels | join(' and ')}}"
     metadata: !TemplateMetadata
       choices_in_prompt: false
       metrics: []
@@ -14,21 +31,29 @@ templates:
     name: bigbio_txtclass_suggest
     reference: ''
   3d43f4b6-2b7f-43b7-9395-b6d04a8e407d: !Template
-    answer_choices: null
+    answer_choices: Activating invasion and metastasis ||| Avoiding immune destruction
+      ||| Cellular energetics ||| Enabling replicative immortality ||| Evading growth
+      suppressors ||| Genomic instability and mutation ||| Inducing angiogenesis |||
+      Resisting cell death ||| NULL ||| Sustaining proliferative signaling ||| Tumor
+      promoting inflammation
     id: 3d43f4b6-2b7f-43b7-9395-b6d04a8e407d
-    jinja: ''
+    jinja: "{{text}} \n{% if labels.length == 1 %} \nChoose from the following list\
+      \ one label that describes the previous text best: {{answer_choices | join(',\
+      \ ')}}\n{% else %}\nChoose from the following list multiple labels that describe\
+      \ the previous text best: {{answer_choices | join(', ')}}\n{% endif %}\n|||\
+      \ {{labels | join(', ')}}"
     metadata: !TemplateMetadata
-      choices_in_prompt: null
-      metrics: null
-      original_task: null
-    name: bigbio_txtclass_text
+      choices_in_prompt: true
+      metrics: []
+      original_task: true
+    name: bigbio_txtclass_classify_choices
     reference: ''
   7bc3f042-213d-4dd0-acbb-a2c6cfea9e62: !Template
     answer_choices: null
     id: 7bc3f042-213d-4dd0-acbb-a2c6cfea9e62
-    jinja: "{% if labels.length == 0 %} \nWhat label best describes this text?\n{%\
-      \ else %}\nWhich labels best describe the following sentences?\n{% endif %}\n\
-      {{text}}\n|||{{labels | join(', ')}}"
+    jinja: "{% if labels.length == 1 %} \nWhat label best describes this text?\n{%\
+      \ else %}\nWhich labels best describe this text?\n{% endif %}\n{{text}}\n|||{{labels\
+      \ | join(', ')}}"
     metadata: !TemplateMetadata
       choices_in_prompt: false
       metrics: []
@@ -38,21 +63,38 @@ templates:
   7e710044-91e1-4aa2-9e65-6a1b90abe9d4: !Template
     answer_choices: null
     id: 7e710044-91e1-4aa2-9e65-6a1b90abe9d4
-    jinja: "{% if labels.length == 0 %} \nGiven the text below suggest a possible\
-      \ label:\n{% else %}\nGiven the text below suggest possible labels for each\
-      \ sentence:\n{% endif %}\n{{text}}\n|||{{labels | join(' and ')}}"
+    jinja: "{% if labels.length == 1 %} \nGiven the text below suggest a possible\
+      \ label:\n{% else %}\nGiven the text below suggest possible labels:\n{% endif\
+      \ %}\n{{text}}\n|||{{labels | join(' and ')}}"
     metadata: !TemplateMetadata
       choices_in_prompt: false
       metrics: []
       original_task: true
     name: bigbio_txtclass_suggest_question_first
     reference: ''
+  d465809b-bb16-4918-bdf4-06b3b830eeb2: !Template
+    answer_choices: Activating invasion and metastasis ||| Avoiding immune destruction
+      ||| Cellular energetics ||| Enabling replicative immortality ||| Evading growth
+      suppressors ||| Genomic instability and mutation ||| Inducing angiogenesis |||
+      Resisting cell death ||| NULL ||| Sustaining proliferative signaling ||| Tumor
+      promoting inflammation
+    id: d465809b-bb16-4918-bdf4-06b3b830eeb2
+    jinja: "{% if labels.length == 1 %} \nPick one category for the following text.\
+      \ The options are - {{answer_choices |\njoin(', ')}}\n{% else %}\nPick multiple\
+      \ categories for the following text. The options are - {{answer_choices |\n\
+      join(', ')}}\n{% endif %}\n{{text}}\n|||{{labels | join(', ')}}"
+    metadata: !TemplateMetadata
+      choices_in_prompt: true
+      metrics: []
+      original_task: true
+    name: bigbio_txtclass_options_choices
+    reference: ''
   f1c564fd-f380-4d2b-9231-44a3dbad99b8: !Template
     answer_choices: null
     id: f1c564fd-f380-4d2b-9231-44a3dbad99b8
-    jinja: "{{text}} \n{% if labels.length == 0 %} \nWhat label best describes this\
-      \ text?\n{% else %}\nWhich labels best describe the previous sentences?\n{%\
-      \ endif %} \n|||{{labels | join(', ')}}"
+    jinja: "{{text}} \n{% if labels.length == 1 %} \nWhat label best describes this\
+      \ text?\n{% else %}\nWhich labels best describe this text?\n{% endif %} \n|||{{labels\
+      \ | join(', ')}}"
     metadata: !TemplateMetadata
       choices_in_prompt: false
       metrics: []
