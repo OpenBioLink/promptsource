@@ -8,7 +8,7 @@ templates:
 
       {{ answer_choices | join('' or '') }}?
 
-      |||{% if label == "entailment" %}
+      |||{% if label == "entails" %}
 
       {{answer_choices[0]}}
 
