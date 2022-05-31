@@ -1,0 +1,171 @@
+dataset: chemprot
+subset: chemprot_bigbio_kb
+templates:
+  0cc837cf-b7f0-40ca-8d75-c23256bbc105: !Template
+    answer_choices: null
+    id: 0cc837cf-b7f0-40ca-8d75-c23256bbc105
+    jinja: '{% set ent_len = entities|length %}
+      {% set entity_text_id = range(0, ent_len) | random %}
+      {% if entities[entity_type_id]["type"] != "CHEMICAL"
+      %}
+      {% set answer = "Yes" %}
+      {% else %}
+      {% set answer = "No" %}
+      {% endif %}
+
+      {{passages[0][0]["text"] }}
+
+      In the passage above, is "{{ entity_text }}" an gene or protein type? Please
+      write {{ "Yes" }} or {{ "No" }}?
+
+      ||| {{ answer }}'
+    metadata: !TemplateMetadata
+      choices_in_prompt: false
+      metrics:
+      - Accuracy
+      original_task: false
+    name: is_gene_or_protein_chemprot
+    reference: Binary classification chemprot Gene/Protein
+  0cc837cf-b7f0-40ca-8d75-c23256bbc105: !Template
+    answer_choices: null
+    id: 0cc837cf-b7f0-40ca-8d75-c23256bbc105
+    jinja: '{% set ent_len = entities|length %}
+      {% set entity_text_id = range(0, ent_len) | random %}
+      {% if entities[entity_type_id]["type"] == "CHEMICAL"
+      %}
+      {% set answer = "Yes" %}
+      {% else %}
+      {% set answer = "No" %}
+      {% endif %}
+
+      {{passages[0][0]["text"] }}
+
+      In the passage above, is "{{ entity_text }}" a chemical? Please
+      write {{ "Yes" }} or {{ "No" }}?
+
+      ||| {{ answer }}'
+    metadata: !TemplateMetadata
+      choices_in_prompt: false
+      metrics:
+      - Accuracy
+      original_task: false
+    name: is_chemical_chemprot
+    reference: Binary classification chemical
+  2775762b-42c5-46e1-8fc2-c4d2b0d82b0c: !Template
+    answer_choices: null
+    id: 2775762b-42c5-46e1-8fc2-c4d2b0d82b0c
+    jinja: 'What chemicals are upregulators to their protein gene targets?
+    Separate each chemical and gene or protein target pair with a comma.
+      If there are none, "None."
+
+      {{passages[0]["text"][0]}}
+      |||
+
+      {% if relations | length > 0 %}
+      {% for relation in relations %}
+      {% if relation["type"] == "Upregulator" %}
+
+      {% for entity in entities %}{% if entity["id"] == relation["arg1_id"] %}{{ entity["text"][0]
+      }}{% endif %}{% endfor %}, {% for entity in entities %}{% if entity["id"] ==
+      relation["arg2_id"] %}{{ entity["text"][0] }} {% endif %}{% endfor %}{% endfor
+      %}{% else %}None.{% endif %}'
+    metadata: !TemplateMetadata
+      choices_in_prompt: false
+      metrics:
+      - Other
+      original_task: true
+    name: is_there_upregulator
+    reference: ''
+  2775762b-42c5-46e1-8fc2-c4d2b0d82b0c: !Template
+    answer_choices: null
+    id: 2775762b-42c5-46e1-8fc2-c4d2b0d82b0c
+    jinja: 'What chemicals are downregulators to their protein gene targets?
+    Separate each chemical and gene or protein target pair with a comma.
+      If there are none, "None."
+
+      {{passages[0]["text"][0]}}
+      |||
+
+      {% if relations | length > 0 %}
+      {% for relation in relations %}
+      {% if relation["type"] == "Downregulator" %}
+
+      {% for entity in entities %}{% if entity["id"] == relation["arg1_id"] %}{{ entity["text"][0]
+      }}{% endif %}{% endfor %}, {% for entity in entities %}{% if entity["id"] ==
+      relation["arg2_id"] %}{{ entity["text"][0] }} {% endif %}{% endfor %}{% endfor
+      %}{% else %}None.{% endif %}'
+    metadata: !TemplateMetadata
+      choices_in_prompt: false
+      metrics:
+      - Other
+      original_task: true
+    name: is_there_downregulator
+    reference: ''
+  2775762b-42c5-46e1-8fc2-c4d2b0d82b0c: !Template
+    answer_choices: null
+    id: 2775762b-42c5-46e1-8fc2-c4d2b0d82b0c
+    jinja: 'What chemicals are agonists to their protein gene targets?
+    Separate each chemical and gene or protein target pair with a comma.
+      If there are none, "None."
+
+      {{passages[0]["text"][0]}}
+      |||
+
+      {% if relations | length > 0 %}
+      {% for relation in relations %}
+      {% if relation["type"] == "Agonist" %}
+
+      {% for entity in entities %}{% if entity["id"] == relation["arg1_id"] %}{{ entity["text"][0]
+      }}{% endif %}{% endfor %}, {% for entity in entities %}{% if entity["id"] ==
+      relation["arg2_id"] %}{{ entity["text"][0] }} {% endif %}{% endfor %}{% endfor
+      %}{% else %}None.{% endif %}'
+    metadata: !TemplateMetadata
+      choices_in_prompt: false
+      metrics:
+      - Other
+      original_task: true
+    name: is_there_agonist
+    reference: ''
+  2775762b-42c5-46e1-8fc2-c4d2b0d82b0c: !Template
+    answer_choices: null
+    id: 2775762b-42c5-46e1-8fc2-c4d2b0d82b0c
+    jinja: 'What chemicals are antagonists to their protein gene targets?
+    Separate each chemical and gene or protein target pair with a comma.
+      If there are none, "None."
+
+      {{passages[0]["text"][0]}}
+      |||
+
+      {% if relations | length > 0 %}
+      {% for relation in relations %}
+      {% if relation["type"] == "Antagonist" %}
+
+      {% for entity in entities %}{% if entity["id"] == relation["arg1_id"] %}{{ entity["text"][0]
+      }}{% endif %}{% endfor %}, {% for entity in entities %}{% if entity["id"] ==
+      relation["arg2_id"] %}{{ entity["text"][0] }} {% endif %}{% endfor %}{% endfor
+      %}{% else %}None.{% endif %}'
+    metadata: !TemplateMetadata
+      choices_in_prompt: false
+      metrics:
+      - Other
+      original_task: true
+    name: is_there_antagonist
+    reference: ''
+  e520da97-7097-4755-b83c-f528a0232831: !Template
+    answer_choices: null
+    id: e520da97-7097-4755-b83c-f528a0232831
+    jinja: 'What pairs of chemicals and protein or gene targets exhibit some biological relationship?
+      {{passages[0]["text"][0]}}
+      |||
+      {% if relations | length > 0 %}{% for relation in relations %}
+      {% for entity in entities %}{% if entity["id"] == relation["arg1_id"] %}{{ entity["text"][0]
+      }}{% endif %}{% endfor %}, {% for entity in entities %}{% if entity["id"] ==
+      relation["arg2_id"] %}{{ entity["text"][0] }} {% endif %}{% endfor %}{% endfor
+      %}{% else %}None.{% endif %}'
+    metadata: !TemplateMetadata
+      choices_in_prompt: false
+      metrics:
+      - Other
+      original_task: true
+    name: Types of relations without formatting
+    reference: ''
