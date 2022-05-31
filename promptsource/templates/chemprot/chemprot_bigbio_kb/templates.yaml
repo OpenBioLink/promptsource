@@ -8,12 +8,13 @@ templates:
       {% set entity_text_id = range(0, ent_len) | random %}
       {% if entities[entity_type_id]["type"] != "CHEMICAL"
       %}
+      {% set entity_text =  entities[entity_text_id]["text"][0] %}
       {% set answer = "Yes" %}
       {% else %}
       {% set answer = "No" %}
       {% endif %}
 
-      {{passages[0][0]["text"] }}
+      {{passages[0]["text"] }}
 
       In the passage above, is "{{ entity_text }}" an gene or protein type? Please
       write {{ "Yes" }} or {{ "No" }}?
@@ -33,12 +34,13 @@ templates:
       {% set entity_text_id = range(0, ent_len) | random %}
       {% if entities[entity_type_id]["type"] == "CHEMICAL"
       %}
+      {% set entity_text =  entities[entity_text_id]["text"][0] %}
       {% set answer = "Yes" %}
       {% else %}
       {% set answer = "No" %}
       {% endif %}
 
-      {{passages[0][0]["text"] }}
+      {{passages[0]["text"] }}
 
       In the passage above, is "{{ entity_text }}" a chemical? Please
       write {{ "Yes" }} or {{ "No" }}?
