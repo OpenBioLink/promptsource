@@ -1,0 +1,103 @@
+dataset: gad
+subset: gad_fold1_bigbio_text
+templates:
+  079471a6-8eb1-468c-ad98-b40d9e290caf: !Template
+    answer_choices: No ||| Yes
+    id: 079471a6-8eb1-468c-ad98-b40d9e290caf
+    jinja: 'Is there an association between the gene @GENE$ and the disease @DISEASE$
+      expressed in this passage?
+
+
+      {{ text }}
+
+      |||
+
+      {{ answer_choices[labels[0] | int] }}'
+    metadata: !TemplateMetadata
+      choices_in_prompt: false
+      metrics:
+      - Accuracy
+      - Other
+      original_task: true
+    name: Is there an association expressed? (passage last)
+    reference: '"Other" metric refers to the micro F1 used in BLURB.'
+  8d5b31ab-3eb3-4f6d-a653-3ec1c4704f39: !Template
+    answer_choices: No ||| Yes
+    id: 8d5b31ab-3eb3-4f6d-a653-3ec1c4704f39
+    jinja: 'I''m a doctor. Can you tell me, is there an association between the gene
+      @GENE$ and the disease @DISEASE$ expressed in this passage?
+
+
+      {{ text }}
+
+      |||
+
+      {{ answer_choices[labels[0] | int] }}'
+    metadata: !TemplateMetadata
+      choices_in_prompt: false
+      metrics:
+      - Accuracy
+      - Other
+      original_task: true
+    name: I'm a doctor
+    reference: '"Other" metric refers to the micro F1 used in BLURB.'
+  9ecf58f5-e6dd-486e-8234-f050fa806d85: !Template
+    answer_choices: No ||| Yes
+    id: 9ecf58f5-e6dd-486e-8234-f050fa806d85
+    jinja: '{{ text }}
+
+
+      Does this passage indicate that there is an association between the gene @GENE$
+      and the disease @DISEASE$ ?
+
+      |||
+
+      {{ answer_choices[labels[0] | int] }}'
+    metadata: !TemplateMetadata
+      choices_in_prompt: false
+      metrics:
+      - Accuracy
+      - Other
+      original_task: true
+    name: Does this passage (passage first)
+    reference: '"Other" metric refers to the micro F1 used in BLURB.'
+  b26032d2-3edd-4dd9-b1d3-379db0d7f145: !Template
+    answer_choices: No ||| Yes
+    id: b26032d2-3edd-4dd9-b1d3-379db0d7f145
+    jinja: 'Does the following passage indicate that there is an association between
+      the gene @GENE$ and the disease @DISEASE$ ?
+
+
+      {{ text }}
+
+      |||
+
+      {{ answer_choices[labels[0] | int] }}'
+    metadata: !TemplateMetadata
+      choices_in_prompt: false
+      metrics:
+      - Accuracy
+      - Other
+      original_task: true
+    name: Does this passage (passage last)
+    reference: '"Other" metric refers to the micro F1 used in BLURB.'
+  edf792c0-6598-4e41-aa38-8841561b203f: !Template
+    answer_choices: No ||| Yes
+    id: edf792c0-6598-4e41-aa38-8841561b203f
+    jinja: '{{ text }}
+
+
+      Is there an association between the gene @GENE$ and the disease @DISEASE$ expressed
+      in this passage?
+
+      |||
+
+      {{ answer_choices[labels[0] | int] }}'
+    metadata: !TemplateMetadata
+      choices_in_prompt: false
+      metrics:
+      - Accuracy
+      - Other
+      original_task: true
+    name: Is there an association expressed? (passage first)
+    reference: '"Other" metric refers to the micro F1 used in BLURB.'
