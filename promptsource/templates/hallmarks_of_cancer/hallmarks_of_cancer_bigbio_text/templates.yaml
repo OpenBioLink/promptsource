@@ -5,7 +5,7 @@ templates:
     answer_choices: activating invasion and metastasis ||| avoiding immune destruction
       ||| cellular energetics ||| enabling replicative immortality ||| evading growth
       suppressors ||| genomic instability and mutation ||| inducing angiogenesis |||
-      resisting cell death ||| null ||| sustaining proliferative signaling ||| tumor
+      resisting cell death ||| none ||| sustaining proliferative signaling ||| tumor
       promoting inflammation
     id: 29f3c020-076b-4c08-9fa5-bec1e0989e5d
     jinja: "{{text}} \n{% if labels|length == 1 %} \n{text} Given a choice of categories\
@@ -34,7 +34,7 @@ templates:
     answer_choices: activating invasion and metastasis ||| avoiding immune destruction
       ||| cellular energetics ||| enabling replicative immortality ||| evading growth
       suppressors ||| genomic instability and mutation ||| inducing angiogenesis |||
-      resisting cell death ||| null ||| sustaining proliferative signaling ||| tumor
+      resisting cell death ||| none ||| sustaining proliferative signaling ||| tumor
       promoting inflammation
     id: 3d43f4b6-2b7f-43b7-9395-b6d04a8e407d
     jinja: "{{text}} \n{% if labels|length == 1 %} \nChoose from the following list\
@@ -76,7 +76,7 @@ templates:
     answer_choices: activating invasion and metastasis ||| avoiding immune destruction
       ||| cellular energetics ||| enabling replicative immortality ||| evading growth
       suppressors ||| genomic instability and mutation ||| inducing angiogenesis |||
-      resisting cell death ||| null ||| sustaining proliferative signaling ||| tumor
+      resisting cell death ||| none ||| sustaining proliferative signaling ||| tumor
       promoting inflammation
     id: d465809b-bb16-4918-bdf4-06b3b830eeb2
     jinja: "{% if labels|length == 1 %} \nPick one category for the following text.\
