@@ -1,0 +1,133 @@
+dataset: ddi_corpus
+subset: ddi_corpus_bigbio_kb
+templates:
+  2775762b-42c5-46e1-8fc2-c4d2b0d82b0c: !Template
+    answer_choices: null
+    id: 2775762b-42c5-46e1-8fc2-c4d2b0d82b0c
+    jinja: 'What pairs of drugs are said to exhibit some kind of pharmacokinetic or
+      pharmacodynamic interaction in the following passage? Label them as either "mechanism"
+      or "effect." Separate each drug in the pair and the label with commas, and separate
+      each relation with a new line. If there are none, "None."
+
+
+      {{passages[0]["text"][0]}}
+
+      |||
+
+      {% if relations | length > 0 %}{% for relation in relations %}
+
+      {% for entity in entities %}{% if entity["id"] == relation["arg1_id"] %}{{ entity["text"][0]
+      }}{% endif %}{% endfor %}, {% for entity in entities %}{% if entity["id"] ==
+      relation["arg2_id"] %}{{ entity["text"][0] }}{% endif %}{% endfor %}, {{ relation["type"]
+      | lower }}{% endfor %}{% else %}None.{% endif %}'
+    metadata: !TemplateMetadata
+      choices_in_prompt: true
+      metrics:
+      - Other
+      original_task: true
+    name: What are the relations
+    reference: ''
+  2ee8b6ea-8787-4c0c-bb0b-9093f7821d02: !Template
+    answer_choices: null
+    id: 2ee8b6ea-8787-4c0c-bb0b-9093f7821d02
+    jinja: 'Read the following passage and list all pairs of drugs that are said to
+      exhibit some kind of pharmacokinetic or pharmacodynamic interaction. Label them
+      as either "mechanism" or "effect."
+
+
+      {{passages[0]["text"][0]}}
+
+      |||
+
+      {% if relations | length > 0 %}{% for relation in relations %}
+
+      {% for entity in entities %}{% if entity["id"] == relation["arg1_id"] %}{{ entity["text"][0]
+      }}{% endif %}{% endfor %}, {% for entity in entities %}{% if entity["id"] ==
+      relation["arg2_id"] %}{{ entity["text"][0] }}{% endif %}{% endfor %}, {{ relation["type"]
+      | lower }}{% endfor %}{% else %}None.{% endif %}'
+    metadata: !TemplateMetadata
+      choices_in_prompt: true
+      metrics:
+      - Other
+      original_task: true
+    name: List all relations (no formatting instructions)
+    reference: ''
+  a15f43d8-167b-4017-9646-f81c99a885af: !Template
+    answer_choices: null
+    id: a15f43d8-167b-4017-9646-f81c99a885af
+    jinja: 'I''m a doctor. I need help reading the following passage. Please list
+      all pairs of drugs that are said to exhibit some kind of pharmacokinetic or
+      pharmacodynamic interaction. Label them as either "mechanism" or "effect." Separate
+      each drug in the pair and the label with commas, and separate each relation
+      with a new line. If there are none, say "None."
+
+
+      {{passages[0]["text"][0]}}
+
+      |||
+
+      {% if relations | length > 0 %}{% for relation in relations %}
+
+      {% for entity in entities %}{% if entity["id"] == relation["arg1_id"] %}{{ entity["text"][0]
+      }}{% endif %}{% endfor %}, {% for entity in entities %}{% if entity["id"] ==
+      relation["arg2_id"] %}{{ entity["text"][0] }}{% endif %}{% endfor %}, {{ relation["type"]
+      | lower }}{% endfor %}{% else %}None.{% endif %}'
+    metadata: !TemplateMetadata
+      choices_in_prompt: true
+      metrics:
+      - Other
+      original_task: true
+    name: I'm a doctor
+    reference: ''
+  c105df42-2a8f-4ba4-8a6a-798a4a0b268b: !Template
+    answer_choices: null
+    id: c105df42-2a8f-4ba4-8a6a-798a4a0b268b
+    jinja: 'Read the following passage and list all pairs of drugs that are said to
+      exhibit some kind of pharmacokinetic or pharmacodynamic interaction. Label them
+      as either "mechanism" or "effect." Separate each drug in the pair and the label
+      with commas, and separate each relation with a new line. If there are none,
+      say "None."
+
+
+      {{passages[0]["text"][0]}}
+
+      |||
+
+      {% if relations | length > 0 %}{% for relation in relations %}
+
+      {% for entity in entities %}{% if entity["id"] == relation["arg1_id"] %}{{ entity["text"][0]
+      }}{% endif %}{% endfor %}, {% for entity in entities %}{% if entity["id"] ==
+      relation["arg2_id"] %}{{ entity["text"][0] }}{% endif %}{% endfor %}, {{ relation["type"]
+      | lower }}{% endfor %}{% else %}None.{% endif %}'
+    metadata: !TemplateMetadata
+      choices_in_prompt: true
+      metrics:
+      - Other
+      original_task: true
+    name: List all relations
+    reference: ''
+  e520da97-7097-4755-b83c-f528a0232831: !Template
+    answer_choices: null
+    id: e520da97-7097-4755-b83c-f528a0232831
+    jinja: 'What pairs of drugs are said to exhibit some kind of pharmacokinetic or
+      pharmacodynamic interaction in the following passage? Label them as either "mechanism"
+      or "effect."
+
+
+      {{passages[0]["text"][0]}}
+
+      |||
+
+      {% if relations | length > 0 %}{% for relation in relations %}
+
+      {% for entity in entities %}{% if entity["id"] == relation["arg1_id"] %}{{ entity["text"][0]
+      }}{% endif %}{% endfor %}, {% for entity in entities %}{% if entity["id"] ==
+      relation["arg2_id"] %}{{ entity["text"][0] }}{% endif %}{% endfor %}, {{ relation["type"]
+      | lower }}{% endfor %}{% else %}None.{% endif %}'
+    metadata: !TemplateMetadata
+      choices_in_prompt: true
+      metrics:
+      - Other
+      original_task: true
+    name: What are the relations (no formatting instructions)
+    reference: ''
