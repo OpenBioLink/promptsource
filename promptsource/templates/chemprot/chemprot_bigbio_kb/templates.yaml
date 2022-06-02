@@ -1,0 +1,215 @@
+dataset: chemprot
+subset: chemprot_bigbio_kb
+templates:
+  06cb141a-2cc5-4654-b00c-f372bfb520b6: !Template
+    answer_choices: null
+    id: 06cb141a-2cc5-4654-b00c-f372bfb520b6
+    jinja: '{{ passages[0][''text''][0] }}
+
+
+      What chemicals are upregulators to their protein or gene targets from the above
+      passage? Separate each chemical and gene or protein target pair with a comma.
+      If there are none, return nothing.
+
+
+      |||
+
+
+      {% if relations|length > 0 %}{% for relation in relations %}{% if relation[''type'']
+      == "Upregulator" %}{% for entity in entities %}{% if entity[''id''] == relation[''arg1_id'']
+      %}{{ entity[''text''][0] }}{% endif %}{% endfor %},{% for entity in entities
+      %}{% if entity[''id''] == relation[''arg2_id''] %}{{ entity[''text''][0] }}{%
+      endif %}{% endfor %}
+
+      {% endif %}{% endfor %}{% endif %}'
+    metadata: !TemplateMetadata
+      choices_in_prompt: false
+      metrics:
+      - Other
+      original_task: true
+    name: is_upregulator
+    reference: Find all upregulator compounds
+  609340b7-d8e7-43e3-9ea8-bb76d3e84af9: !Template
+    answer_choices: Yes || No
+    id: 609340b7-d8e7-43e3-9ea8-bb76d3e84af9
+    jinja: '{% set ent_len = entities|length %}
+
+      {% set entity_text_id = range(0, ent_len) | random %}
+
+      {% set etype = entities[entity_text_id][''text''][0] %}
+
+      {% if entities[entity_text_id][''type''] != "CHEMICAL" %}
+
+      {% set answer = "Yes" %}
+
+      {% else %}
+
+      {% set answer = "No" %}
+
+      {% endif %}
+
+
+      {{ passages[0][''text''][0] }}
+
+
+
+      In the passage above, is "{{ etype }}" a chemical type? Please write {{ "Yes"
+      }} or {{ "No" }}?
+
+      ||| {{ answer }}'
+    metadata: !TemplateMetadata
+      choices_in_prompt: false
+      metrics:
+      - Accuracy
+      original_task: true
+    name: is_geneprotein_chemprot
+    reference: ''
+  629051fe-905a-4fc6-a751-0d0a05faa383: !Template
+    answer_choices: null
+    id: 629051fe-905a-4fc6-a751-0d0a05faa383
+    jinja: '{{ passages[0][''text''][0] }}
+
+
+      What chemicals are downregulators to their protein or gene targets from the
+      above passage? Separate each chemical and gene or protein target pair with a
+      comma. If there are none, return nothing.
+
+
+      |||
+
+
+      {% if relations|length > 0 %}{% for relation in relations %}{% if relation[''type'']
+      == "Downregulator" %}{% for entity in entities %}{% if entity[''id''] == relation[''arg1_id'']
+      %}{{ entity[''text''][0] }}{% endif %}{% endfor %},{% for entity in entities
+      %}{% if entity[''id''] == relation[''arg2_id''] %}{{ entity[''text''][0] }}{%
+      endif %}{% endfor %}
+
+      {% endif %}{% endfor %}{% endif %}'
+    metadata: !TemplateMetadata
+      choices_in_prompt: false
+      metrics:
+      - Other
+      original_task: false
+    name: is_downregulator
+    reference: Are there downregulator compounds in the passage?
+  830f10a2-633a-43bd-a8df-997373b77ea7: !Template
+    answer_choices: null
+    id: 830f10a2-633a-43bd-a8df-997373b77ea7
+    jinja: '{{ passages[0][''text''][0] }}
+
+
+      What chemicals are agonists to their protein or gene targets from the above
+      passage? Separate each chemical and gene or protein target pair with a comma.
+      If there are none, return nothing.
+
+
+      |||
+
+
+      {% if relations|length > 0 %}{% for relation in relations %}{% if relation[''type'']
+      == "Agonist" %}{% for entity in entities %}{% if entity[''id''] == relation[''arg1_id'']
+      %}{{ entity[''text''][0] }}{% endif %}{% endfor %},{% for entity in entities
+      %}{% if entity[''id''] == relation[''arg2_id''] %}{{ entity[''text''][0] }}{%
+      endif %}{% endfor %}
+
+      {% endif %}{% endfor %}{% endif %}'
+    metadata: !TemplateMetadata
+      choices_in_prompt: false
+      metrics:
+      - Other
+      original_task: false
+    name: is_agonist
+    reference: Are there compounds in the passage that are agonists?
+  9baf100f-d328-4920-ac83-4caa800d280f: !Template
+    answer_choices: null
+    id: 9baf100f-d328-4920-ac83-4caa800d280f
+    jinja: '{{ passages[0][''text''][0] }}
+
+
+      What chemicals are regulators to their protein or gene targets from the above
+      passage? Separate each chemical and gene or protein target pair with a comma.
+      If there are none, return nothing.
+
+
+      |||
+
+
+      {% if relations|length > 0 %}{% for relation in relations %}{% if relation[''type'']
+      == "Regulator" %}{% for entity in entities %}{% if entity[''id''] == relation[''arg1_id'']
+      %}{{ entity[''text''][0] }}{% endif %}{% endfor %},{% for entity in entities
+      %}{% if entity[''id''] == relation[''arg2_id''] %}{{ entity[''text''][0] }}{%
+      endif %}{% endfor %}
+
+      {% endif %}{% endfor %}{% endif %}'
+    metadata: !TemplateMetadata
+      choices_in_prompt: false
+      metrics:
+      - Other
+      original_task: true
+    name: is_regulator
+    reference: Which relations describe regulators between compound and protein/gene?
+  b3f07e34-9d41-4bd3-95e7-670f1346af21: !Template
+    answer_choices: Yes || No
+    id: b3f07e34-9d41-4bd3-95e7-670f1346af21
+    jinja: '
+
+      {% set ent_len = entities|length %}
+
+      {% set entity_text_id = range(0, ent_len) | random %}
+
+      {% set etype = entities[entity_text_id][''text''][0] %}
+
+      {% if entities[entity_text_id][''type''] == "CHEMICAL" %}
+
+      {% set answer = "Yes" %}
+
+      {% else %}
+
+      {% set answer = "No" %}
+
+      {% endif %}
+
+
+      {{ passages[0][''text''][0] }}
+
+
+
+      In the passage above, is "{{ etype }}" a chemical type? Please write {{ "Yes"
+      }} or {{ "No" }}?
+
+      ||| {{ answer }}'
+    metadata: !TemplateMetadata
+      choices_in_prompt: false
+      metrics:
+      - Accuracy
+      original_task: true
+    name: is_chemical_chemprot
+    reference: Is the following a chemical compound?
+  da2578a8-e3eb-46fe-a835-3d3c676a49a8: !Template
+    answer_choices: null
+    id: da2578a8-e3eb-46fe-a835-3d3c676a49a8
+    jinja: '{{ passages[0][''text''][0] }}
+
+
+      What chemicals are antagonists to their protein or gene targets from the above
+      passage? Separate each chemical and gene or protein target pair with a comma.
+      If there are none, return nothing.
+
+
+      |||
+
+
+      {% if relations|length > 0 %}{% for relation in relations %}{% if relation[''type'']
+      == "Antagonist" %}{% for entity in entities %}{% if entity[''id''] == relation[''arg1_id'']
+      %}{{ entity[''text''][0] }}{% endif %}{% endfor %},{% for entity in entities
+      %}{% if entity[''id''] == relation[''arg2_id''] %}{{ entity[''text''][0] }}{%
+      endif %}{% endfor %}
+
+      {% endif %}{% endfor %}{% endif %}'
+    metadata: !TemplateMetadata
+      choices_in_prompt: false
+      metrics:
+      - Other
+      original_task: false
+    name: is_antagonist
+    reference: ''
