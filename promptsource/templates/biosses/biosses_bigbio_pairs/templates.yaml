@@ -39,7 +39,7 @@ templates:
     metadata: !TemplateMetadata
       choices_in_prompt: false
       metrics:
-      - Accuracy
+      - Pearson Correlation
       original_task: false
     name: bigbio_sts_similarity_how
     reference: ''
@@ -69,7 +69,6 @@ templates:
       choices_in_prompt: false
       metrics:
       - Pearson Correlation
-      - Accuracy
       original_task: false
     name: bigbio_sts_similarity_rate
     reference: ''
