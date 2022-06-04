@@ -17,7 +17,7 @@ templates:
     name: bigbio_sts_seem_binary
     reference: ''
   9c87c669-7be0-42f3-bd38-32ff149f2722: !Template
-    answer_choices: null
+    answer_choices: 0 ||| 1 ||| 2 ||| 3 ||| 4
     id: 9c87c669-7be0-42f3-bd38-32ff149f2722
     jinja: 'from {{"0.0"}} to {{"4.0"}}, how similar are "{{text_1}}" and "{{text_2}}"?|||
 
@@ -30,7 +30,7 @@ templates:
     name: bigbio_sts_similarity_scale
     reference: ''
   abc04725-8f0d-4653-a813-b9b41a45f253: !Template
-    answer_choices: null
+    answer_choices: 0 ||| 1 ||| 2 ||| 3 ||| 4
     id: abc04725-8f0d-4653-a813-b9b41a45f253
     jinja: 'How similar are "{{text_1}}" and "{{text_2}}"? Give a score between {{"0.0"}}
       and {{"4.0"}}.|||
@@ -38,7 +38,8 @@ templates:
       {{label}}'
     metadata: !TemplateMetadata
       choices_in_prompt: false
-      metrics: []
+      metrics:
+      - Accuracy
       original_task: false
     name: bigbio_sts_similarity_how
     reference: ''
@@ -56,7 +57,7 @@ templates:
     name: bigbio_sts_express_binary
     reference: ''
   e0b0f20b-47a8-459d-898e-d9a428706e20: !Template
-    answer_choices: null
+    answer_choices: 0 ||| 1 ||| 2 ||| 3 ||| 4
     id: e0b0f20b-47a8-459d-898e-d9a428706e20
     jinja: 'Rate the similarity of these two sentences ({{"0.0"}} being the lowest
       and {{"4.0"}} the highest):
@@ -68,6 +69,7 @@ templates:
       choices_in_prompt: false
       metrics:
       - Pearson Correlation
+      - Accuracy
       original_task: false
     name: bigbio_sts_similarity_rate
     reference: ''
